@@ -1,11 +1,9 @@
 import discord from "discord.js";
-interface ICommands {
-    [index: string]: any;
-    nick(): void;
-}
-declare class Commands implements ICommands {
+declare class Commands {
     client: discord.Client;
+    [index: string]: any;
     constructor(client: discord.Client);
-    nick(...args: string[]): void;
+    nick(message: discord.Message, ...args: string[]): Promise<discord.Message | undefined>;
+    pin(message: discord.Message, ...args: string[]): Promise<discord.Message | undefined>;
 }
 export default Commands;
