@@ -13,8 +13,8 @@ const client: discord.Client = new discord.Client({
 const commands: Commands = new Commands(client);
 const eventHandler: EventHandler = new EventHandler(client, commands);
 
-client.on("ready", eventHandler.ready);
-client.on("messageCreate", eventHandler.messageCreate);
-client.on("error", eventHandler.error);
+client.on("ready", eventHandler.ready.bind(eventHandler));
+client.on("messageCreate", eventHandler.messageCreate.bind(eventHandler));
+client.on("error", eventHandler.error.bind(eventHandler));
 
 client.login(process.env.TOKEN as string);
