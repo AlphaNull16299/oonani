@@ -1,0 +1,27 @@
+{
+  "scripts": {
+    "build": "tsc --locale ja",
+    "start": "node index.js"
+  },
+  "name": "oonani",
+  "description": "alphanull's bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
+    "npm": "^7.20.6",
+    "typescript": "^4.3.5"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sueqkjs/oonani.git"
+  },
+  "author": "Sueqkjs",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/Sueqkjs/oonani/issues"
+  },
+  "homepage": "https://github.com/Sueqkjs/oonani#readme"
+}
