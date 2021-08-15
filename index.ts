@@ -16,3 +16,5 @@ const eventHandler: EventHandler = new EventHandler(client, commands);
 client.on("ready", eventHandler.ready);
 client.on("messageCreate", eventHandler.messageCreate);
 client.on("error", eventHandler.error);
+
+client.login(process.env.TOKEN as string);
