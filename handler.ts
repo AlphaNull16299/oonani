@@ -26,7 +26,7 @@ class EventHandler implements Handler {
       const [command, ...args] = message.content.split(" ");
       if(command in this.commands) this.commands[command].call(this.commands, ...args);
     } else if(message.author.id === "159985870458322944") {
-      const channel: discord.TextChannel | null = await this._client.channels.fetch(process.env.levelupChannel as string);
+      const channel: discord.Channel | null = await this._client.channels.fetch(process.env.levelupChannel as string) as discord.TextChannel;
       const [_, level, userid] = message.content.split(" ");
       if(!(level as string in roles)) return;
       const role: discord.Role | null = await message.guild?.roles.fetch(roles[+level] as string);
