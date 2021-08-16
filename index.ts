@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import fs from "fs"
 import EventHandler from "./handler"
 import Commands from "./commands"
+import _ from "./process"
 dotenv.config();
 
 type Handler = {[T in keyof discord.ClientEvents]?: (...args: discord.ClientEvents[T]) => Promise<void>}
