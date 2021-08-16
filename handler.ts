@@ -20,8 +20,8 @@ class EventHandler implements Handler {
     this._client = client;
   }
   async messageCreate(message: discord.Message) {
-    console.log(message.content);
     if(!message.guild) return;
+    console.log(message.content);
     if(message.content.startsWith(this.prefix)) {
       if(message.author.bot) return;
       const [command, ...args] = message.content.split(" ");
