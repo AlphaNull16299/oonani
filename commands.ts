@@ -10,7 +10,7 @@ class Commands {
   }
   async nick(message: discord.Message, ...args: string[]) {
     if(!message.member?.permissions.has("MANAGE_NICKNAMES")) return message.reply("おまえの権限たりねぇばか");
-    args.pop();
+    args.shift();
     if(!args[0]) return message.reply("引数たりねぇばか");
     await message.mentions.members?.first()?.setNickname(args.join(" "));
     message.reply("success!");
