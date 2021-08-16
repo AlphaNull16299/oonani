@@ -22,11 +22,12 @@ class EventHandler implements Handler {
   async messageCreate(message: discord.Message) {
     console.log(message.content);
     if(!message.guild) return;
-    if(message.author.bot) return;
     if(message.content.startsWith(this.prefix)) {
+      if(message.author.bot) return;
       const [command, ...args] = message.content.split(" ");
       if(command in this.commands) this.commands[command].call(this.commands, ...args);
     } else if(message.author.id === "159985870458322944") {
+      if(!message.author.bot) return;
       const channel: any | { send: Function } = await this._client.channels.fetch(process.env.levelupChannel as string);
       const [_, level, userid] = message.content.split(" ");
       if(!(level as string in roles)) return;
@@ -36,6 +37,7 @@ class EventHandler implements Handler {
       await member.roles.add(role);
       channel.send(member + "さんが" + level + "lvにレベルアップしました！");
     } else {
+      if(message.author.bot) return;
       const regex: RegExp = /https?:\/\/([a-z]+\.)?discord(app)?\.com\/channels\/(?<guildid>\d{16,18})\/(?<channelid>\d{16,18})\/(?<messageid>\d{16,18})/;
       const match: RegExpMatchArray | null = message.content.match(regex);
       if(!match) return;
