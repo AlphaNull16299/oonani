@@ -22,7 +22,7 @@ class Commands {
     target.pin();
   }
   async eval(message: discord.Message, ...args: string[]) {
-    const code: RegExpMatchArray | null = args.join(" ").match(/```(?<codeType>[a-z]{2})(?<code>.+)```/);
+    const code: RegExpMatchArray | null = message.content.match(/```(?<codeType>[a-z]{2})(?<code>.+)```/);
     const owner: discord.Team | discord.User | null | undefined = (await this.client.application?.fetch())?.owner;
     if(!owner) return;
     let isOwner: boolean = false;
