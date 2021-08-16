@@ -29,7 +29,7 @@ class Commands {
     let result: string;
     if(owner instanceof discord.Team) isOwner = owner.members.has(message.author.id);
     if(owner instanceof discord.User) isOwner = message.author.equals(owner);
-    if(!isOwner) message.reply("使えるとでも、思ってたんですか？バカデスネー。");
+    if(!isOwner) return message.reply("使えるとでも、思ってたんですか？バカデスネー。");
     if(code?.groups?.codeType === "ts" || code?.groups?.codeType === "js") return message.reply("不明なコードタイプです。jsかtsが実行できます。");
     try {
       result = inspect(
