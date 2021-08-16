@@ -38,10 +38,10 @@ class EventHandler implements Handler {
       const regex: RegExp = /https?:\/\/([a-z]+\.)?discord(app)?\.com\/channels\/(?<guildid>\d{16,18})\/(?<channelid>\d{16,18})\/(?<messageid>\d{16,18})/;
       const match: RegExpMatchArray | null = message.content.match(regex);
       if(!match) return;
-      const guild: discord.Guild | undefined = await this._client.guilds.fetch(match?.groups?.guildid as string).catch((e: Error) => void e);
+      const guild: discord.Guild | undefined = await this._client.guilds.fetch(match?.groups?.guildid as string).catch(e => void e);
       const channel: discord.GuildChannel | null | undefined = await guild?.channels?.fetch(match?.groups?.channelid as string).catch(e => void e);
-      if(!channel?.isText()) return;
-      const target: discord.Message | undefined = await channel?.messages?.fetch(match?.groups?.guildid as string).catch(e => void e);
+      if(!channel || !channel.isText()) return;
+      const target: discord.Message | undefined = await channel.messages?.fetch(match?.groups?.guildid as string).catch(e => void e);
       if(!target) return;
       const embed: discord.MessageEmbed = new discord.MessageEmbed()
         .setDescription(target.content || "(none)")
