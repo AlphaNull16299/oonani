@@ -12,7 +12,7 @@ const client: discord.Client = new discord.Client({
 });
 const commands: Commands = new Commands(client);
 const eventHandler: EventHandler = new EventHandler(client, commands);
-
+console.log(Object.getOwnPropertyNames(commands))
 client.on("ready", eventHandler.ready.bind(eventHandler));
 client.on("messageCreate", eventHandler.messageCreate.bind(eventHandler));
 client.on("error", eventHandler.error.bind(eventHandler));

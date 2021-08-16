@@ -17,7 +17,6 @@ class EventHandler implements Handler {
   constructor(client: discord.Client, commands: Commands) {
     this.prefix = process.env.prefix || "<";
     this.commands = commands;
-    console.log(Object.getOwnPropertyNames(commands))
     this._client = client;
   }
   async messageCreate(message: discord.Message) {
