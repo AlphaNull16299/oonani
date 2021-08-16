@@ -26,10 +26,10 @@ class EventHandler implements Handler {
       const [command, ...args] = message.content.split(" ");
       if(command in this.commands) this.commands[command].call(this.commands, ...args);
     } else if(message.author.id === "159985870458322944") {
-      const channel: discord.Channel | null = await this._client.channels.fetch(process.env.levelupChannel as string);
+      const channel: any | { send: Function } = await this._client.channels.fetch(process.env.levelupChannel as string);
       const [_, level, userid] = message.content.split(" ");
       if(!(level as string in roles)) return;
-      const role: discord.Role | null = await message.guild?.roles.fetch(roles[+level]);
+      const role: discord.Role | null = await message.guild?.roles.fetch(roles[+level] as string);
       const member: discord.GuildMember = await message.guild?.members.fetch(userid);
       if(!(channel && member && role)) return;
       await member.roles.add(role);
@@ -38,7 +38,7 @@ class EventHandler implements Handler {
   }
   async ready() {
     console.log("logged as " + this._client.user?.tag);
-    const guild: discord.Guild | null = await client.guilds.fetch(process.env.guildid as string);
+    const guild: discord.Guild | null = await this._client.guilds.fetch(process.env.guildid as string);
     if(!guild) return;
     setInterval(() => {
       const time: number = new Date().getUTCHours() + 9;
