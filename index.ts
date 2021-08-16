@@ -6,6 +6,7 @@ import Commands from "./commands"
 dotenv.config();
 
 import _ from "./process"
+void _;
 
 type Handler = {[T in keyof discord.ClientEvents]?: (...args: discord.ClientEvents[T]) => Promise<void>}
 
