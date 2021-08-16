@@ -51,7 +51,7 @@ class EventHandler implements Handler {
         .setDescription(target.content || "(none)")
         .setFooter(target.author.tag, target.author.avatarURL({ size: 512, format: "png" }) as string)
         .setTimestamp(target.createdAt)
-        .setURL(message.url)
+        .setURL(target.url)
         .setTitle("メッセージに飛ぶ");
       const attachments: discord.MessageAttachment[] = [...target.attachments.values()];
       if(attachments.length !== 0) embed.setURL(attachments.shift()?.url as string);
