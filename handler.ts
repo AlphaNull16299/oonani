@@ -38,10 +38,23 @@ class EventHandler implements Handler {
       const regex: RegExp = /https?:\/\/([a-z]+\.)?discord(app)?\.com\/channels\/(?<guildid>\d{16,18})\/(?<channelid>\d{16,18})\/(?<messageid>\d{16,18})/;
       const match: RegExpMatchArray | null = message.content.match(regex);
       if(!match) return;
-      const guild: discord.Guild | undefined = await this._client.guilds.fetch(match?.groups?.guildid).catch(e => void e);
-      const channel: discord.Channel = await guild.channels.fetch(match?.groups?.channelid).catch(e => void e);
-      const target: discord.Message = await channel.messages.fetch(match?.groups?.guildid).catch(e => void e);
-      await message.channel.send(target);
+      const guild: discord.Guild | undefined = await this._client.guilds.fetch(match?.groups?.guildid as string).catch((e: Error) => void e);
+      const channel: discord.GuildChannel | null | undefined = await guild?.channels?.fetch(match?.groups?.channelid as string).catch(e => void e);
+      if(!channel?.isText()) return;
+      const target: discord.Message | undefined = await channel?.messages?.fetch(match?.groups?.guildid as string).catch(e => void e);
+      if(!target) return;
+      const embed: discord.MessageEmbed = new discord.MessageEmbed()
+        .setDescription(target.content || "(none)")
+        .setFooter(target.author.tag, target.author.avatarURL({ size: 512, format: "png" }) as string)
+        .setTimestamp(target.createdAt)
+        .setURL(message.url)
+        .setTitle("メッセージに飛ぶ");
+      const attachments: discord.MessageAttachment[] = [...target.attachments.values()];
+      if(attachments.length !== 0) embed.setURL(attachments.shift()?.url as string);
+      await message.channel.send({
+        embeds: [embed, ...target.embeds].slice(0,9),
+        files: attachments.length === 0 ? void 0 : attachments.map(a => a.url)
+      });
     }
   }
   async ready() {
