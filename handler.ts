@@ -37,7 +37,9 @@ class EventHandler implements Handler {
     };
   }
   async ready() {
+    const status: string[] = Array.from(process.env.status?.split(":") as string[]);
     console.log("logged as " + this._client.user?.tag);
+    this._client.user?.setActivity(status[1] as string, { type: status[0].toUpperCase() as discord.ActivityType });
     const guild: discord.Guild | null = await this._client.guilds.fetch(process.env.guildid as string);
     if(!guild) return;
     setInterval(() => {
