@@ -20,9 +20,10 @@ class EventHandler implements Handler {
     this._client = client;
   }
   async messageCreate(message: discord.Message) {
+    console.log(message.content);
     if(!message.guild) return;
     if(message.author.bot) return;
-    if(!message.content.startsWith(this.prefix)) {
+    if(message.content.startsWith(this.prefix)) {
       const [command, ...args] = message.content.split(" ");
       if(command in this.commands) this.commands[command].call(this.commands, ...args);
     } else if(message.author.id === "159985870458322944") {
