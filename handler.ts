@@ -34,7 +34,15 @@ class EventHandler implements Handler {
       if(!(channel && member && role)) return;
       await member.roles.add(role);
       channel.send(member + "さんが" + level + "lvにレベルアップしました！");
-    };
+    } else {
+      const regex: RegExp = /https?:\/\/([a-z]+\.)?discord(app)?\.com\/channels\/(?<guildid>\d{16,18})\/(?<channelid>\d{16,18})\/(?<messageid>\d{16,18})/;
+      const match: RegExpMatchArray | null = message.content.match(regex);
+      if(!match) return;
+      const guild: discord.Guild | undefined = await this._client.guilds.fetch(match?.groups?.guildid).catch(e => void e);
+      const channel: discord.Channel = await guild.channels.fetch(match?.groups?.channelid).catch(e => void e);
+      const target: discord.Message = await channel.messages.fetch(match?.groups?.guildid).catch(e => void e);
+      await message.channel.send(target);
+    }
   }
   async ready() {
     const status: string[] = Array.from(process.env.status?.split(":") as string[]);
