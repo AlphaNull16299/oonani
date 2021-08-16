@@ -5,5 +5,6 @@ declare class Commands {
     constructor(client: discord.Client);
     nick(message: discord.Message, ...args: string[]): Promise<discord.Message | undefined>;
     pin(message: discord.Message, ...args: string[]): Promise<discord.Message | undefined>;
+    eval(message: discord.Message, ...args: string[]): Promise<discord.Message | undefined>;
 }
 export default Commands;
