@@ -9,14 +9,14 @@ class Commands {
     this.client = client;
   }
   async nick(message: discord.Message, ...args: string[]) {
-    if(message.member?.permissions.has("MANAGE_NICKNAMES")) return message.reply("おまえの権限たりねぇばか");
+    if(!message.member?.permissions.has("MANAGE_NICKNAMES")) return message.reply("おまえの権限たりねぇばか");
     args.pop();
     if(!args[0]) return message.reply("引数たりねぇばか");
     await message.mentions.members?.first()?.setNickname(args.join(" "));
     message.reply("success!");
   }
   async pin(message: discord.Message, ...args: string[]) {
-    if(message.member?.permissions.has("MANAGE_MESSAGES")) return message.reply("おまえの権限たりねぇばか");
+    if(!message.member?.permissions.has("MANAGE_MESSAGES")) return message.reply("おまえの権限たりねぇばか");
     if(!args[0]) return message.reply("引数たりねぇばか");
     const target: discord.Message = await message.channel.messages.fetch(String(args.pop()));
     target.pin();
