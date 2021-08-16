@@ -24,8 +24,8 @@ class EventHandler implements Handler {
     if(!message.guild) return;
     if(message.content.startsWith(this.prefix)) {
       if(message.author.bot) return;
-      const [command, ...args] = message.content.split(" ");
-      if(this.commands[command]) this.commands[command].call(this.commands, ...args);
+      const [command, ...args] = message.content.slice(this.prefix.length).split(" ");
+      if(this.commands[command]) this.commands[command].call(this.commands, message, ...args);
       console.log(this.commands[command]);
     } else if(message.author.id === "159985870458322944") {
       if(!message.author.bot) return;
