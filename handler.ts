@@ -72,9 +72,9 @@ class EventHandler implements Handler {
       if(time === beforeTime) return;
       beforeTime = time;
       if(guild.name.match(/\s\d{1,2}時/)){
-        guild.setName(guild.name + " " + time + "時");
-      } else {
         guild.setName(guild.name.replace(/\s\d{1,2}時/, " " + time + "時"));
+      } else {
+        guild.setName(guild.name + " " + time + "時");
       };
     });
   }
