@@ -20,12 +20,13 @@ class EventHandler implements Handler {
     this._client = client;
   }
   async messageCreate(message: discord.Message) {
+    console.log(message.content)
     if(!message.guild) return;
     if(message.content.startsWith(this.prefix)) {
       if(message.author.bot) return;
       const [command, ...args] = message.content.split(" ");
       if(this.commands[command]) this.commands[command].call(this.commands, ...args);
-      debugger;
+      console.log(this.commands[command]);
     } else if(message.author.id === "159985870458322944") {
       if(!message.author.bot) return;
       const channel: any | { send: Function } = await this._client.channels.fetch(process.env.levelupChannel as string);
